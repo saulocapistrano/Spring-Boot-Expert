@@ -16,6 +16,10 @@ public class ClientRepository {
 
     private static String INSERT = "insert into client (name) values (?)";
     private static String SELECT_ALL = "select * from client";
+
+    private static String UPDATE = "update client set name =? where id = ? ";
+
+    private static String DELETE = "delete from client  where id = ? ";
     @Autowired
     private JdbcTemplate jdbcTemplate;
     public Client save(Client client){
@@ -24,12 +28,42 @@ public class ClientRepository {
         return client;
     }
 
+
+    public Client update(Client client){
+
+        jdbcTemplate.update(UPDATE, new Object[]{client.getName(), client.getId()});
+        return client;
+    }
+
+    public Client delete(Client client){
+        delete(client.getId());
+    return null;
+    }
+
+    public Client delete(Integer id){
+    jdbcTemplate.update(DELETE, new Object[]{id});
+        return null;
+    }
+
+    public List<Client> getByName(String name){
+        return jdbcTemplate.query(SELECT_ALL.concat(" where name like ?"),
+                new Object[]{"%"+name+"%"},
+                returnMaper());
+    }
+
     public List<Client> returnAll(){
-        return jdbcTemplate.query(SELECT_ALL, new RowMapper<Client>() {
+        return jdbcTemplate.query(SELECT_ALL, returnMaper());
+    }
+
+    private static RowMapper<Client> returnMaper() {
+        return new RowMapper<Client>() {
             @Override
-            public Client mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new Client(rs.getString("name"));
+            public Client mapRow(ResultSet rs, int i) throws SQLException {
+
+                Integer id = rs.getInt("id");
+                String name = rs.getString("name");
+                return new Client(name, id);
             }
-        });
+        };
     }
 }
