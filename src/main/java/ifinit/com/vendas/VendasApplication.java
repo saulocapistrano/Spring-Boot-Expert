@@ -53,12 +53,12 @@ public class VendasApplication {
           clientRepository.getByName("Capis").forEach(System.out::println);
 
 
-//          System.out.println("Delete character.");
-//          clientRepository.returnAll().forEach(c ->{
-//              clientRepository.delete(c);
-//          });
-//
-//          allClients = clientRepository.returnAll();
+          System.out.println("Delete character.");
+          clientRepository.returnAll().forEach(c ->{
+              clientRepository.delete(c);
+          });
+
+          allClients = clientRepository.returnAll();
 
           if (allClients.isEmpty()) {
             System.out.println("No have client");
