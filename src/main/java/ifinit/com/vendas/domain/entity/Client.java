@@ -8,6 +8,13 @@ public class Client {
     public Client() {
 
     }
+
+    public Client(String name, Integer id) {
+        this.id = id;
+        this.name = name;
+
+    }
+
     public Client(String name) {
         this.name = name;
     }
