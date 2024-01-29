@@ -1,15 +1,21 @@
 package ifinit.com.vendas.domain.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table
 public class Client {
 
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private String name;
 
     public Client() {
 
     }
 
-    public Client(String name, Integer id) {
+    public Client(String name, Long id) {
         this.id = id;
         this.name = name;
 
@@ -19,11 +25,11 @@ public class Client {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,4 +48,6 @@ public class Client {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+
 }
