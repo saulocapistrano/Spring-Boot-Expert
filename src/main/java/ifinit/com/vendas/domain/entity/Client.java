@@ -2,6 +2,8 @@ package ifinit.com.vendas.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table
 public class Client {
@@ -14,6 +16,10 @@ public class Client {
     public Client() {
 
     }
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Ordered> ordereds;
+
 
     public Client(String name, Integer id) {
         this.id = id;
@@ -39,6 +45,15 @@ public class Client {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public List<Ordered> getOrdereds() {
+        return ordereds;
+    }
+
+    public void setOrdereds(List<Ordered> ordereds) {
+        this.ordereds = ordereds;
     }
 
     @Override
