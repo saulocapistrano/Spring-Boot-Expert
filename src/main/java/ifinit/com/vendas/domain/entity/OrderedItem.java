@@ -1,8 +1,17 @@
 package ifinit.com.vendas.domain.entity;
 
+import jakarta.persistence.*;
+
+@Entity
 public class OrderedItem {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
     private Ordered ordered;
+    @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product product;
     private Integer amount;
 
