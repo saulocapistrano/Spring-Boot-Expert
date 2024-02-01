@@ -1,5 +1,6 @@
 package ifinit.com.vendas.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -52,6 +53,7 @@ public class Client {
         return ordereds;
     }
 
+    @JsonIgnore
     public void setOrdereds(List<Ordered> ordereds) {
         this.ordereds = ordereds;
     }
