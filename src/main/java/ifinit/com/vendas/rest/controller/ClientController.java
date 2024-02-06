@@ -2,14 +2,17 @@ package ifinit.com.vendas.rest.controller;
 
 import ifinit.com.vendas.domain.entity.Client;
 import ifinit.com.vendas.domain.repositories.ClientRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping(value = "/api/client")
 
 public class ClientController {
 
@@ -19,8 +22,8 @@ public class ClientController {
         this.clientRepository = clientRepository;
     }
 
-    @GetMapping(value = "/api/client/{id}")
-    @ResponseBody
+    @GetMapping(value = "/{id}")
+
     public ResponseEntity<Client> getClientById(@PathVariable Integer id) {
 
         Optional<Client> client = clientRepository.findById(id);
@@ -31,8 +34,7 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping(value = "/api/client")
-    @ResponseBody
+    @PostMapping
     public ResponseEntity<Client> saveClient(@RequestBody Client newClient) {
         Optional<Client> existingClient = clientRepository.findByNameLike(newClient.getName());
 
@@ -47,8 +49,7 @@ public class ClientController {
 
     }
 
-    @DeleteMapping(value = "/api/client/remove/{id}")
-    @ResponseBody
+    @DeleteMapping(value = "{id}")
     public ResponseEntity<Client> delete(@PathVariable Integer id) {
         Optional<Client> existingClient = clientRepository.findById(id);
 
@@ -61,8 +62,7 @@ public class ClientController {
     }
 
 
-    @PutMapping(value = "/api/client/{id}")
-    @ResponseBody
+    @PutMapping(value = "{id}")
     public ResponseEntity<Client> update(@PathVariable Integer id, @RequestBody  Client upClient){
 
         Optional<Client> existingClient = clientRepository.findById(id);
@@ -76,8 +76,7 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
-//    @PutMapping(value = "/api/client/{id}")
-//    @ResponseBody
+//    @PutMapping(value = {id}")
 //    public ResponseEntity update(@PathVariable Integer id, @RequestBody  Client upClient){
 //
 //        return clientRepository.findById(id).map(existingClient -> {
@@ -87,7 +86,22 @@ public class ClientController {
 //        }).orElseGet(()-> ResponseEntity.notFound().build());
 //
 // código implementado pelo professor, aparentemente tem melhor performance que o método que eu criei
-//    }
+//}
 
+
+    @GetMapping
+    public ResponseEntity findList( Client filter){
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(
+                        ExampleMatcher.StringMatcher.CONTAINING
+                );
+
+
+        Example example = Example.of(filter, matcher);
+        List<Client> newList = clientRepository.findAll(example);
+        return ResponseEntity.ok(newList);
+    }
 
 }
