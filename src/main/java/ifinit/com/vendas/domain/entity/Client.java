@@ -14,6 +14,11 @@ public class Client {
     private Integer id;
     private String name;
 
+    @Column(length = 11)
+    private String cpf;
+
+
+
     public Client() {
 
     }
@@ -22,9 +27,10 @@ public class Client {
     private List<Ordered> ordereds;
 
 
-    public Client(String name, Integer id) {
+    public Client(String name, Integer id, String cpf) {
         this.id = id;
         this.name = name;
+        this.cpf = cpf;
 
     }
 
@@ -48,10 +54,18 @@ public class Client {
         this.name = name;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
     public List<Ordered> getOrdereds() {
         return ordereds;
     }
+
 
     @JsonIgnore
     public void setOrdereds(List<Ordered> ordereds) {
