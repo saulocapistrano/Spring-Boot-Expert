@@ -76,19 +76,6 @@ public class ClientController {
         return ResponseEntity.notFound().build();
     }
 
-//    @PutMapping(value = {id}")
-//    public ResponseEntity update(@PathVariable Integer id, @RequestBody  Client upClient){
-//
-//        return clientRepository.findById(id).map(existingClient -> {
-//            upClient.setId(existingClient.getId());
-//            clientRepository.save(upClient);
-//            return ResponseEntity.noContent().build();
-//        }).orElseGet(()-> ResponseEntity.notFound().build());
-//
-// código implementado pelo professor, aparentemente tem melhor performance que o método que eu criei
-//}
-
-
     @GetMapping
     public ResponseEntity findList( Client filter){
         ExampleMatcher matcher = ExampleMatcher
