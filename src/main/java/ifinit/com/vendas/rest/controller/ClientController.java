@@ -70,6 +70,21 @@ public class ClientController {
         if (existingClient.isPresent()) {
             Client clientToUpdate = existingClient.get();
             clientToUpdate.setName(upClient.getName());
+            clientToUpdate.setCpf(upClient.getCpf());
+            clientToUpdate.setBirthDate(upClient.getBirthDate());
+            clientToUpdate.setEmail(upClient.getEmail());
+            clientToUpdate.setPhoneNumber(upClient.getPhoneNumber());
+            clientToUpdate.setGender(upClient.getGender());
+            clientToUpdate.setOrdereds(upClient.getOrdereds());
+
+            clientToUpdate.setCreatedBy(upClient.getCreatedBy());
+            clientToUpdate.setCreatedAt(upClient.getCreatedAt());
+            clientToUpdate.setLastModifiedAt(upClient.getLastModifiedAt());
+            clientToUpdate.setLastModifiedBy(upClient.getLastModifiedBy());
+
+            clientToUpdate.setPassword(upClient.getPassword());
+            clientToUpdate.setUsername(upClient.getUsername());
+
             clientRepository.save(clientToUpdate);
             return ResponseEntity.ok(clientToUpdate);
         }
