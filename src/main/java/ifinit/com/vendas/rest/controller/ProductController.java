@@ -7,6 +7,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,29 +22,25 @@ public class ProductController {
         this.productRepository = productRepository;
     }
 
-    @GetMapping(value = "/{id}")
-    @ResponseBody()
-    public ResponseEntity<Product> getProductById(@PathVariable  Integer id){
-
-        Optional<Product> product = productRepository.findById(id);
-        if(product.isPresent()){
-            return ResponseEntity.ok(product.get());
-        }
-        return ResponseEntity.notFound().build();
-    }
-
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product newProduct){
-        Optional<Product> extistingProduct = productRepository.findByNameLike(newProduct.getName());
-        if (extistingProduct.isPresent()){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(extistingProduct.get());
-        } else{
-            Product saveProduct = productRepository.save(newProduct);
-            return ResponseEntity.status(HttpStatus.CREATED).body(saveProduct);
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Product save(@RequestBody Product product){
+        return productRepository.save(product);
     }
+
+
+    @PutMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Integer id, @RequestBody Product product){
+        productRepository.findById(id).map( p ->{
+            product.setId(p.getId());
+            productRepository.save(product);
+            return product;
+        }).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Product no existing"));
+
+    }
+
 
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Product> delete(@PathVariable Integer id){
@@ -55,18 +52,16 @@ public class ProductController {
         return ResponseEntity.notFound().build();
     }
 
-
-    @PutMapping(value = "{id}")
-    public ResponseEntity<Product> update(@PathVariable Integer id, @RequestBody Product upProduct ){
-        Optional<Product> existingProduct = productRepository.findById(id);
-        if(existingProduct.isPresent()){
-            Product productToUpdate = existingProduct.get();
-            productToUpdate.setName(upProduct.getName());
-            productRepository.save(productToUpdate);
-            return ResponseEntity.ok(productToUpdate);
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping(value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Product getById(@PathVariable  Integer id){
+        return productRepository
+                .findById(id)
+                .orElseThrow(
+                        ()-> new ResponseStatusException
+                        (HttpStatus.NOT_FOUND, "Product no existing"));
     }
+
 
     @GetMapping
     public ResponseEntity findList(Product filter){
@@ -81,6 +76,4 @@ public class ProductController {
         return ResponseEntity.ok(newList);
 
     }
-
-
 }
