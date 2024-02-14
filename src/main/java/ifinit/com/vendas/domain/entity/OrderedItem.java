@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 public class OrderedItem {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -45,5 +47,14 @@ public class OrderedItem {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Ordered Item{" +
+                "rdered=" + ordered +
+                ", product=" + product.getName() +
+                ", amount=" + amount +
+                '}';
     }
 }
