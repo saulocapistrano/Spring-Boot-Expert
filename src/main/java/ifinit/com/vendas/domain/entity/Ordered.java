@@ -8,6 +8,8 @@ import java.util.List;
 
 @Entity
 public class Ordered {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -63,11 +65,10 @@ public class Ordered {
     @Override
     public String toString() {
         return "Ordered{" +
-                "id=" + id +
-                ", client=" + client +
-                ", orderDate=" + orderDate +
-                ", totalOrder=" + totalOrder +
-                ", orderedItems=" + orderedItems +
+                ", Client=" + client.getName() +
+                ", Date =" + orderDate +
+                ", Total=" + totalOrder +
+                ", Items=" + orderedItems +
                 '}';
     }
 }
