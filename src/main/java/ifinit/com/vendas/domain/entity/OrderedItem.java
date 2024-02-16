@@ -15,7 +15,7 @@ public class OrderedItem {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    private Integer amount;
+    private Integer quantity;
 
     public Integer getId() {
         return id;
@@ -41,12 +41,12 @@ public class OrderedItem {
         this.product = product;
     }
 
-    public Integer getAmount() {
-        return amount;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity ;
     }
 
     @Override
@@ -54,7 +54,7 @@ public class OrderedItem {
         return "Ordered Item{" +
                 "rdered=" + ordered +
                 ", product=" + product.getName() +
-                ", amount=" + amount +
+                ", qauntity=" + quantity +
                 '}';
     }
 }
