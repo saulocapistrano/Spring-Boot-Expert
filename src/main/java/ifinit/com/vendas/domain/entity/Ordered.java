@@ -16,7 +16,15 @@ public class Ordered {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-    private LocalDate orderDate;
+
+    @ManyToOne
+    @JoinColumn(name = "client_name")
+    private Client clientName;
+
+    private LocalDate orderDate = LocalDate.now();
+
+    // total order representa o somatório do valos dos items do pedido
+    // esse valor deve ser calculado pelo sistema
     @Column(name = "total_order", precision = 20, scale = 2)
     private BigDecimal totalOrder;
 
@@ -26,9 +34,6 @@ public class Ordered {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Client getClient() {
         return client;
@@ -36,6 +41,14 @@ public class Ordered {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Client getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(Client clientName) {
+        this.clientName = clientName;
     }
 
     public LocalDate getOrderDate() {
@@ -64,7 +77,7 @@ public class Ordered {
 
     @Override
     public String toString() {
-        return "Ordered{" +
+        return "Ordered" +
                 ", Client=" + client.getName() +
                 ", Date =" + orderDate +
                 ", Total=" + totalOrder +
