@@ -1,18 +1,21 @@
 create table client(
 id integer primary key AUTO_INCREMENT,
-name varchar(100)
+name varchar(100),
+    cpf varchar(11)
 );
 
 create table product(
 id integer primary key AUTO_INCREMENT,
+name_product varchar(100),
 description varchar(100),
 price numeric(20,2)
 );
 
 create table ordered(
 id integer primary key AUTO_INCREMENT,
-client_id integer references client(id),
+    client_id integer references client(id),
     order_date timestamp,
+    status_oredered varchar(20),
 total_order numeric(20,2)
 );
 
