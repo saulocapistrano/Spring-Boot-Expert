@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -50,6 +51,14 @@ public class OrderedServiceImpl implements OrderedService {
         orderedItemRepository.saveAll(orderedItems);
         ordered.setOrderedItems(orderedItems);
         return ordered;
+    }
+
+    // implementando a listagem de pedido completo
+    @Override
+    public Optional<Ordered> receiveCompletOrdered(Integer id) {
+
+
+        return orderedRepository.findById(id);
     }
 
 
