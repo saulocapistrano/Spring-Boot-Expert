@@ -3,6 +3,7 @@ package ifinit.com.vendas.service.impl;
 import ifinit.com.vendas.domain.entity.Ordered;
 import ifinit.com.vendas.domain.entity.OrderedItem;
 import ifinit.com.vendas.domain.entity.Product;
+import ifinit.com.vendas.domain.enums.StatusOredered;
 import ifinit.com.vendas.domain.repositories.ClientRepository;
 import ifinit.com.vendas.domain.repositories.OrderedItemRepository;
 import ifinit.com.vendas.domain.repositories.OrderedRepository;
@@ -44,7 +45,7 @@ public class OrderedServiceImpl implements OrderedService {
         ordered.setOrderDate(LocalDate.now());
         ordered.setClient(clientRepository.findById(idClient)
                 .orElseThrow(()-> new RulerManagerException("Invalid code client: "+idClient)));
-
+        ordered.setStatusOredered(StatusOredered.CREATED);
 
         List<OrderedItem> orderedItems = convetItems(ordered, orderedDTO.getOrderedItemList());
         orderedRepository.save(ordered);
