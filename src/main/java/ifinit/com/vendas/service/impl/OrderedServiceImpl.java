@@ -8,6 +8,7 @@ import ifinit.com.vendas.domain.repositories.ClientRepository;
 import ifinit.com.vendas.domain.repositories.OrderedItemRepository;
 import ifinit.com.vendas.domain.repositories.OrderedRepository;
 import ifinit.com.vendas.domain.repositories.ProductRepository;
+import ifinit.com.vendas.exception.OrderedNotFoundException;
 import ifinit.com.vendas.exception.RulerManagerException;
 import ifinit.com.vendas.rest.dto.OrderedDTO;
 import ifinit.com.vendas.rest.dto.OrderedItemDTO;
@@ -45,7 +46,7 @@ public class OrderedServiceImpl implements OrderedService {
         ordered.setOrderDate(LocalDate.now());
         ordered.setClient(clientRepository.findById(idClient)
                 .orElseThrow(()-> new RulerManagerException("Invalid code client: "+idClient)));
-        ordered.setStatusOredered(StatusOredered.CREATED);
+        ordered.setStatusOredered(StatusOredered.CREATE);
 
         List<OrderedItem> orderedItems = convetItems(ordered, orderedDTO.getOrderedItemList());
         orderedRepository.save(ordered);
@@ -60,6 +61,16 @@ public class OrderedServiceImpl implements OrderedService {
 
 
         return orderedRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public void updateStatus(Integer id, StatusOredered statusOredered) {
+        orderedRepository.findById(id)
+                .map(ordered -> {
+                    ordered.setStatusOredered(statusOredered);
+                    return orderedRepository.save(ordered);
+                }).orElseThrow(() -> new OrderedNotFoundException());
     }
 
 
