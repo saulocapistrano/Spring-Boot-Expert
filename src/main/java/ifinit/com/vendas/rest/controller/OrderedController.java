@@ -3,9 +3,11 @@ package ifinit.com.vendas.rest.controller;
 
 import ifinit.com.vendas.domain.entity.Ordered;
 import ifinit.com.vendas.domain.entity.OrderedItem;
+import ifinit.com.vendas.domain.enums.StatusOredered;
 import ifinit.com.vendas.rest.dto.InfoItemOrderedDTO;
 import ifinit.com.vendas.rest.dto.InfoOrderedDTO;
 import ifinit.com.vendas.rest.dto.OrderedDTO;
+import ifinit.com.vendas.rest.dto.PatchStatusOrderedDTO;
 import ifinit.com.vendas.service.OrderedService;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
@@ -38,6 +40,15 @@ public class OrderedController {
                 .receiveCompletOrdered(id)
                 .map(p -> convertTo(p))
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Ordered not ..."));
+    }
+
+    @PatchMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStatus( @PathVariable Integer id,
+            @RequestBody PatchStatusOrderedDTO patchStatusOrderedDTO){
+        String newStatus = patchStatusOrderedDTO.getNewStatus();
+        orderedService.updateStatus(id, StatusOredered.valueOf(newStatus));
+
     }
 
     private InfoOrderedDTO convertTo(Ordered ordered){
