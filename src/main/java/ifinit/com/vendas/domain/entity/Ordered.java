@@ -30,6 +30,8 @@ public class Ordered {
 
     @OneToMany(mappedBy = "ordered")
     private List<OrderedItem> orderedItems ;
+
+
     public Integer getId() {
         return id;
     }
