@@ -1,5 +1,6 @@
 package ifinit.com.vendas.domain.entity;
 
+import ifinit.com.vendas.domain.enums.StatusOredered;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -28,9 +29,11 @@ public class Ordered {
     @Column(name = "total_order", precision = 20, scale = 2)
     private BigDecimal totalOrder;
 
+    @Enumerated(EnumType.STRING)
+    @Column
+    private StatusOredered statusOredered;
     @OneToMany(mappedBy = "ordered")
     private List<OrderedItem> orderedItems ;
-
 
     public Integer getId() {
         return id;
@@ -75,6 +78,14 @@ public class Ordered {
 
     public void setOrderedItems(List<OrderedItem> orderedItems) {
         this.orderedItems = orderedItems;
+    }
+
+    public StatusOredered getStatusOredered() {
+        return statusOredered;
+    }
+
+    public void setStatusOredered(StatusOredered statusOredered) {
+        this.statusOredered = statusOredered;
     }
 
     @Override

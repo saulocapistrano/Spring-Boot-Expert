@@ -13,11 +13,8 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String name;
-
     @Column(length = 11)
     private String cpf;
-
-
 
     public Client() {
 
