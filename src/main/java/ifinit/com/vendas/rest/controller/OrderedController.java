@@ -49,6 +49,7 @@ public class OrderedController {
                     .cpfClient(ordered.getClient().getCpf())
                     .total(ordered.getTotalOrder())
                     .items(convert(ordered.getOrderedItems()))
+                    .status(ordered.getStatusOredered().name())
                     .build();
 
     }
