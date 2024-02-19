@@ -1,5 +1,6 @@
 package ifinit.com.vendas.rest.controller;
 
+import ifinit.com.vendas.exception.OrderedNotFoundException;
 import ifinit.com.vendas.exception.RulerManagerException;
 import ifinit.com.vendas.rest.ApiErrors;
 import org.springframework.http.HttpStatus;
@@ -15,5 +16,11 @@ public class ApplicationControllerAdvice {
     public ApiErrors handleRulerManagerException(RulerManagerException exception){
         String messageError = exception.getMessage();
         return new ApiErrors(messageError);
+    }
+
+    @ExceptionHandler(OrderedNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiErrors handleOrderedNotFoundException(OrderedNotFoundException exception){
+    return new ApiErrors(exception.getMessage());
     }
 }
