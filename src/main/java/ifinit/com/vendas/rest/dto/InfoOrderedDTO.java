@@ -13,25 +13,13 @@ public class InfoOrderedDTO {
     private String nameClient;
     private String cpfClient;
     private String orderedDate;
+    private String status;
     private BigDecimal total;
-
-
 
 
     private List<InfoItemOrderedDTO> items;
 
-    public InfoOrderedDTO(Integer code, String description, String nameClient, String cpfClient, String orderedDate, BigDecimal total, List<InfoItemOrderedDTO> items) {
-        this.code = code;
-        this.description = description;
-        this.nameClient = nameClient;
-        this.cpfClient = cpfClient;
-        this.orderedDate = orderedDate;
-        this.total = total;
-        this.items = items;
-    }
 
-    public InfoOrderedDTO() {
-    }
 
     public Integer getCode() {
         return code;
@@ -79,6 +67,14 @@ public class InfoOrderedDTO {
 
     public void setItems(List<InfoItemOrderedDTO> items) {
         this.items = items;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getOrderedDate() {
