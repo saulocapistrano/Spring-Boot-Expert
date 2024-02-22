@@ -2,6 +2,7 @@ package ifinit.com.vendas.rest.controller;
 
 import ifinit.com.vendas.domain.entity.Client;
 import ifinit.com.vendas.domain.repositories.ClientRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<Client> saveClient(@RequestBody Client newClient) {
+    public ResponseEntity<Client> saveClient(@RequestBody @Valid Client newClient) {
         Optional<Client> existingClient = clientRepository.findByNameLike(newClient.getName());
 
         if (existingClient.isPresent()) {
