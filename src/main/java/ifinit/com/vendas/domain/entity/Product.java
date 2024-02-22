@@ -1,6 +1,8 @@
 package ifinit.com.vendas.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 @Entity
@@ -10,8 +12,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @NotEmpty(message = "Field product name is required")
     private String name;
+    @NotNull(message = "Field price is required")
     private BigDecimal price;
+    @NotEmpty(message = "Field description is required")
     private String description;
 
     public  Product(){
