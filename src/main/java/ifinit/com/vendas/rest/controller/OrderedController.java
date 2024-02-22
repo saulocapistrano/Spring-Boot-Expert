@@ -9,6 +9,7 @@ import ifinit.com.vendas.rest.dto.InfoOrderedDTO;
 import ifinit.com.vendas.rest.dto.OrderedDTO;
 import ifinit.com.vendas.rest.dto.PatchStatusOrderedDTO;
 import ifinit.com.vendas.service.OrderedService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,7 @@ public class OrderedController {
     }
     @PostMapping
     @ResponseStatus(CREATED)
-    public Integer save(@RequestBody OrderedDTO orderedDTO){
+    public Integer save(@RequestBody @Valid OrderedDTO orderedDTO){
         Ordered ordered = orderedService.save(orderedDTO);
         return ordered.getId();
     }

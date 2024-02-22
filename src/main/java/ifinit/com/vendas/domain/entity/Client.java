@@ -15,11 +15,11 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @NotEmpty(message = "Field name is required")
+    @NotEmpty(message = "{field.name.required}")
     private String name;
-    @NotEmpty(message = "Field cpf is required")
+    @NotEmpty(message = "{field.cpf.required}")
     @Column(length = 11)
-    @CPF
+    @CPF(message = "{field.cpf.invalid}")
     private String cpf;
 
     public Client() {

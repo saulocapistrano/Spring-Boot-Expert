@@ -12,11 +12,11 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @NotEmpty(message = "Field product name is required")
+    @NotEmpty(message = "field.name.required")
     private String name;
-    @NotNull(message = "Field price is required")
+    @NotNull(message = "{field.price.required}")
     private BigDecimal price;
-    @NotEmpty(message = "Field description is required")
+    @NotEmpty(message = "{field.description.required}")
     private String description;
 
     public  Product(){

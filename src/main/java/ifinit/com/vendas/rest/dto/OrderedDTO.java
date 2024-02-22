@@ -1,15 +1,25 @@
 package ifinit.com.vendas.rest.dto;
 
 import ifinit.com.vendas.domain.entity.Client;
+import ifinit.com.vendas.validation.NotEmptyList;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 
 public class OrderedDTO {
+    @NotNull(message = "{field.code-client.mandatory}")
     private Integer client;
+    @NotNull(message = "{field.total-ordered.mandatory}")
+    @Digits(integer = 10, fraction = 2, message = "Invalid total value")
+    @PositiveOrZero
     private BigDecimal total;
+
     private Client name;
+    @NotEmptyList(message = "{field.items-ordered.mandatory}")
     private List<OrderedItemDTO> orderedItemList;
 
 

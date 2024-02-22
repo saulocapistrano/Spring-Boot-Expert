@@ -1,7 +1,12 @@
 package ifinit.com.vendas.rest.dto;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class OrderedItemDTO {
+
+    @NotEmpty(message = "{field.items-ordered.mandatory}")
     private Integer product;
+    @NotEmpty(message = "{field.quantity.required}")
     private Integer quantity;
 
     public OrderedItemDTO() {
