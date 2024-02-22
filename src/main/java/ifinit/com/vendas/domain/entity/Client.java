@@ -2,6 +2,7 @@ package ifinit.com.vendas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.List;
 
@@ -12,7 +13,10 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @NotEmpty(message = "Field name is required")
     private String name;
+    @NotEmpty(message = "Field cpf is required")
     @Column(length = 11)
     private String cpf;
 
