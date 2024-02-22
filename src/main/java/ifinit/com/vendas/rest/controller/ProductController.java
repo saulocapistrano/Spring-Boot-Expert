@@ -2,6 +2,7 @@ package ifinit.com.vendas.rest.controller;
 
 import ifinit.com.vendas.domain.entity.Product;
 import ifinit.com.vendas.domain.repositories.ProductRepository;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
@@ -25,14 +26,14 @@ public class ProductController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Product save(@RequestBody Product product){
+    public Product save( @RequestBody  @Valid Product product){
         return productRepository.save(product);
     }
 
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@PathVariable Integer id, @RequestBody Product product){
+    public void update(@PathVariable @Valid Integer id, @RequestBody Product product){
         productRepository.findById(id).map( p ->{
             product.setId(p.getId());
             productRepository.save(product);
