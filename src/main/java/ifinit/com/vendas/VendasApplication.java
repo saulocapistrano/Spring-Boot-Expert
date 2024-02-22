@@ -26,8 +26,8 @@ public class VendasApplication {
             productRepository.save(p3);
 
 
-            Client c1 = new Client("Saulo", null, "12345678901");
-            Client c2 = new Client("Karla", null, "12345678901");
+            Client c1 = new Client("Saulo", null, "25583663006");
+            Client c2 = new Client("Karla", null, "70931154030");
             clientRepository.save(c1);
             clientRepository.save(c2);
 
