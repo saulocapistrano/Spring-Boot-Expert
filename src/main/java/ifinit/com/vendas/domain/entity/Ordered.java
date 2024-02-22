@@ -16,6 +16,7 @@ public class Ordered {
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "client_id")
+
     private Client client;
 
     @ManyToOne
