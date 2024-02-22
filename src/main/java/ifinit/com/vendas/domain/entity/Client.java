@@ -3,6 +3,7 @@ package ifinit.com.vendas.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class Client {
     private String name;
     @NotEmpty(message = "Field cpf is required")
     @Column(length = 11)
+    @CPF
     private String cpf;
 
     public Client() {

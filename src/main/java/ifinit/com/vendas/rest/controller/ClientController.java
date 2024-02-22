@@ -64,7 +64,7 @@ public class ClientController {
 
 
     @PutMapping(value = "{id}")
-    public ResponseEntity<Client> update(@PathVariable Integer id, @RequestBody  Client upClient){
+    public ResponseEntity<Client> update(@PathVariable @Valid Integer id, @RequestBody  Client upClient){
 
         Optional<Client> existingClient = clientRepository.findById(id);
 
