@@ -1,42 +1,38 @@
 package ifinit.com.vendas.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CPF;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
-@Table
+@Table(name = "client")  // Adicionei a anotação @Table com o nome da tabela
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotEmpty(message = "{field.name.required}")
     private String name;
+
     @NotEmpty(message = "{field.cpf.required}")
     @Column(length = 11)
     @CPF(message = "{field.cpf.invalid}")
     private String cpf;
 
-    public Client() {
-
-    }
-
-
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Ordered> ordereds;
 
-
+    public Client() {
+    }
 
     public Client(String name, Integer id, String cpf) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
-
     }
 
     public Client(String name) {
@@ -67,12 +63,9 @@ public class Client {
         this.cpf = cpf;
     }
 
-
-
     public List<Ordered> getOrdereds() {
         return ordereds;
     }
-
 
     @JsonIgnore
     public void setOrdereds(List<Ordered> ordereds) {
@@ -86,6 +79,4 @@ public class Client {
                 ", name='" + name + '\'' +
                 '}';
     }
-
-
 }

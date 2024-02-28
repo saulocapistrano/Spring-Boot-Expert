@@ -1,6 +1,6 @@
 package ifinit.com.vendas.rest.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 public class OrderedItemDTO {
 

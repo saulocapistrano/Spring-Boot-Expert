@@ -1,8 +1,8 @@
 package ifinit.com.vendas.validation.constraintvalidation;
 
 import ifinit.com.vendas.validation.NotEmptyList;
-import jakarta.validation.ConstraintValidator;
-import jakarta.validation.ConstraintValidatorContext;
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
 
 import java.util.List;
 

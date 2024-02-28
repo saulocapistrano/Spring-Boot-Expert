@@ -1,7 +1,7 @@
 package ifinit.com.vendas.domain.entity;
 
 import ifinit.com.vendas.domain.enums.StatusOredered;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

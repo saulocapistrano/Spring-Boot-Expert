@@ -1,6 +1,6 @@
 package ifinit.com.vendas.domain.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 @Entity
 public class OrderedItem {

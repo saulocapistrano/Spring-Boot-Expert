@@ -2,9 +2,9 @@ package ifinit.com.vendas.rest.dto;
 
 import ifinit.com.vendas.domain.entity.Client;
 import ifinit.com.vendas.validation.NotEmptyList;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 import java.math.BigDecimal;
 import java.util.List;

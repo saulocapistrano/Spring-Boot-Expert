@@ -2,13 +2,13 @@ package ifinit.com.vendas.rest.controller;
 
 import ifinit.com.vendas.domain.entity.Client;
 import ifinit.com.vendas.domain.repositories.ClientRepository;
-import jakarta.validation.Valid;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
