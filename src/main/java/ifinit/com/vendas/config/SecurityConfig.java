@@ -1,5 +1,7 @@
 package ifinit.com.vendas.config;
 
+import ifinit.com.vendas.security.jwt.JwtAuthFilter;
+import ifinit.com.vendas.security.jwt.JwtService;
 import ifinit.com.vendas.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -8,17 +10,27 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @Autowired
 private UserServiceImpl userService;
-
+@Autowired
+private JwtService jwtService;
 @Bean
 public PasswordEncoder passwordEncoder(){
     return new BCryptPasswordEncoder();
+
+}
+
+@Bean
+public OncePerRequestFilter jwtFilter(){
+    return new JwtAuthFilter(jwtService, userService);
 
 }
 
@@ -29,12 +41,6 @@ public PasswordEncoder passwordEncoder(){
 
     auth .userDetailsService(userService)
          .passwordEncoder(passwordEncoder());
-
-//    .inMemoryAuthentication()
-//            .passwordEncoder(passwordEncoder())
-//            .withUser("fulano")
-//            .password(passwordEncoder().encode("123"))
-//            .roles("USER");
 
     }
 
@@ -55,10 +61,9 @@ public PasswordEncoder passwordEncoder(){
                     .anyRequest()
                         .authenticated()
         .and()
-                .httpBasic();
-//                .formLogin()
-//                .loginPage("/form_login.html")
-//                .permitAll();
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
     }
 
