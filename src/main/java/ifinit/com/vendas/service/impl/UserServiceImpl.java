@@ -2,6 +2,7 @@ package ifinit.com.vendas.service.impl;
 
 import ifinit.com.vendas.domain.entity.User;
 import ifinit.com.vendas.domain.repositories.UserRepository;
+import ifinit.com.vendas.exception.InvalidPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,6 +24,17 @@ public class UserServiceImpl implements UserDetailsService {
     public User save(User user){
         return repository.save(user);
     }
+
+    public UserDetails authentic( User user){
+        UserDetails u = loadUserByUsername(user.getLogin());
+        boolean equalsPassword =   passwordEncoder.matches(user.getPassword(), u.getPassword());
+        if (equalsPassword){
+            return u;
+        }
+
+        throw new InvalidPasswordException();
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
