@@ -25,3 +25,11 @@ order_id integer references ordered(id),
 product_id integer references product(id),
 amount integer
 );
+
+
+create table user(
+id integer primary key AUTO_INCREMENT,
+    login varchar(50) not null ,
+    password varchar(250) not null ,
+admin bool default false
+);
